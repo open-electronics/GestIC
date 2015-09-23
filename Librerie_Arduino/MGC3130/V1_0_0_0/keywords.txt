@@ -1,0 +1,10 @@
+MGC3130	KEYWORD1
+SetSerial	KEYWORD2
+SetAdd	KEYWORD2
+ResetDevice	KEYWORD2
+ExitResetDevice	KEYWORD2
+Begin	KEYWORD2
+ReleaseTsLine	KEYWORD2
+GetEvent	KEYWORD2
+DecodeGesture	KEYWORD2
+GetTsLineStatus	KEYWORD2

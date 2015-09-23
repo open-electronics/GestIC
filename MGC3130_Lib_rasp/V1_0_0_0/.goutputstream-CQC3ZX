@@ -1,0 +1,116 @@
+#===========================================================================
+#  This is the library for MGC3130. 
+#  
+#  MGC3130 is a device that lets you control your hardware projects in a whole new way.  
+#  MGC3130 detects hands movements and converts these  in gestures. These gestures
+#  permit to manage a device without touch it. 
+#
+#  Written by Matteo Destro for Futura Group srl
+#  www.Futurashop.it
+#  www.open-electronics.org
+#
+#  BSD license, all text above must be included in any redistribution
+#  ===========================================================================
+#
+#	REVISION	1.0.0	06/06/2015
+#
+#  ===========================================================================
+#
+#  INSTALLATION
+#  The 3 library files (MGC3130.cpp, MGC3130.h and keywords.txt) in the MGC3130 folder should be placed in your Arduino Library folder.
+#  Run the MGC3130_Demo.ino file from your Arduino IDE.
+#
+#  SUPPORT
+#
+#  info@open-electronics.org
+#
+#===========================================================================
+
+from MGC3130_DefVar import *
+
+import smbus
+import time
+
+#I2Cbus = smbus.SMBus(0)
+I2Cbus = smbus.SMBus(1)
+
+_Data          = c_ubyte * 256
+_i2caddr       = 0x42
+_Counter       = 0
+_FirstTelegram = False
+
+def MGC3130_SetAdd(Addr):
+	_i2caddr = Addr
+
+def MGC3130_Begin(GPIO, Ts, Rst):
+	global _FirstTelegram
+	print("MGC3130 initialization in progress...wait")
+	GPIO.setup(Ts, GPIO.IN, pull_up_down=GPIO.PUD_UP)	# MGC3130 TS Line. Input mode
+	#GPIO.add_event_detect(Ts, GPIO.FALLING, bouncetime=100)
+	GPIO.setup(Rst, GPIO.OUT, initial=GPIO.HIGH)  		# MGC3130 RESET Line
+	GPIO.output(Rst, GPIO.LOW)							# Reset MGC3130 Device
+	time.sleep(0.250)									# Delay 250mSec
+	GPIO.output(Rst, GPIO.HIGH)							# Remove Reset MGC3130 Device		 
+	time.sleep(0.250)									# Delay 250mSec
+	_FirstTelegram = True
+	print("MGC3130 device is ready")
+
+def MGC3130_ResetDevice(GPIO, Rst):
+	GPIO.setup(Rst, GPIO.OUT, initial=GPIO.HIGH)  		# MGC3130 RESET Line
+	GPIO.output(Rst, GPIO.LOW)
+
+def MGC3130_ExitResetDevice(GPIO, Rst):
+	GPIO.setup(Rst, GPIO.OUT, initial=GPIO.HIGH)  		# MGC3130 RESET Line
+	GPIO.output(Rst, GPIO.HIGH)
+
+def MGC3130_ReleaseTsLine(GPIO, Ts):
+	print("Release TS Line")
+	GPIO.output(Ts, GPIO.HIGH)
+	time.sleep(0.050)
+	GPIO.setup(Ts, GPIO.IN, pull_up_down=GPIO.PUD_UP)	# MGC3130 TS Line. Input mode
+	
+def MGC3130_GetTsLineStatus(GPIO, Ts):
+	#if GPIO.event_detected(Ts):
+	if (GPIO.input(Ts) == GPIO.LOW):
+		print("Get TS Line")
+		time.sleep(0.050)
+		GPIO.setup(Ts, GPIO.OUT)	# MGC3130 TS Line. Output mode
+		GPIO.output(Ts, GPIO.LOW)
+		return True
+	else:
+		return False
+
+def MGC3130_GetEvent():
+	global _Counter
+	global _Data
+	global _FirstTelegram
+	
+	_Counter = 0
+	
+	print(_FirstTelegram)
+	if (_FirstTelegram == True):
+		_FirstTelegram = False
+		_Data = I2Cbus.read_i2c_block_data(_i2caddr, 0x00, 0x84)
+	else:
+		_Data = I2Cbus.read_i2c_block_data(_i2caddr, 0x00, 0x1A)
+
+	print(_FirstTelegram)
+	
+	if (_Data[3] == ID_FW_VERSION):
+		print("Telegram Library Version readed")
+		if (_Data[4] == 0xAA):
+			print("Valid Library detected")
+		else:
+			print("Invalid Library detected")
+			
+	elif (_Data[3] == ID_DATA_OUTPUT):
+		print("Telegram Sensor DAta Output readed")
+	else:
+		print("Telegram not managed")
+	
+
+
+
+
+
+
