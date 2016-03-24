@@ -1,0 +1,23 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MCP23017	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+Begin	KEYWORD2
+ToggleSingleBit	KEYWORD2
+SetSingleBit	KEYWORD2
+ResetSingleBit	KEYWORD2
+WriteSingleReg	KEYWORD2
+ClearReg	KEYWORD2
+ReadSingleReg	KEYWORD2
+SetAllRegBank0	KEYWORD2
+SetAllRegBank1	KEYWORD2
+SetIntPortABank0	KEYWORD2
+SetIntPortBBank0	KEYWORD2
+SetIntPortABank1	KEYWORD2
+SetIntPortBBank1	KEYWORD2
