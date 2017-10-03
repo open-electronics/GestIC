@@ -235,19 +235,19 @@ uint8_t Addr_MGC3130  = 0x42;  //  MGC3130 hardware address
 //	Touch -> Tap -> Touch -> DoubleTap -> Touch -> Tap
 //
 uint32_t Gesture_Readed;      //  Used to store the recognized gesture
-uint8_t  NorthTouch[8];       // \
+uint8_t  NorthTouch[8];       // `
 uint8_t  NorthCounter;        //  >--- Set of variables used to store gestures sequence. Usefull to recognize between Touch, Tap and Double Tapgesture. North electrode
 uint8_t  NorthData;           // /
-uint8_t  SouthTouch[8];       // \
+uint8_t  SouthTouch[8];       // `
 uint8_t  SouthCounter;        //  >--- Set of variables used to store gestures sequence. Usefull to recognize between Touch, Tap and Double Tap gesture. South electrode
 uint8_t  SouthData;           // /
-uint8_t  WestTouch[8];        // \
+uint8_t  WestTouch[8];        // `
 uint8_t  WestCounter;         //  >--- Set of variables used to store gestures sequence. Usefull to recognize between Touch, Tap and Double Tap gesture. West electrode
 uint8_t  WestData;            // /
-uint8_t  EastTouch[8];        // \
+uint8_t  EastTouch[8];        // `
 uint8_t  EastCounter;         //  >--- Set of variables used to store gestures sequence. Usefull to recognize between Touch, Tap and Double Tap gesture. East electrode
 uint8_t  EastData;            // /
-uint8_t  CentreTouch[8];      // \
+uint8_t  CentreTouch[8];      // `
 uint8_t  CentreCounter;       //  >--- Set of variables used to store gestures sequence. Usefull to recognize between Touch, Tap and Double Tap gesture. Centre electrode
 uint8_t  CentreData;          // /
 
@@ -257,17 +257,17 @@ uint8_t  CentreData;          // /
 
 //============================================
 //  Use these constants if no filter is set on the gestures that has been read from MGC3130
-#define GESTURE_DOUBLE_TAP_NORTH  10   // \  
+#define GESTURE_DOUBLE_TAP_NORTH  10   // `
 #define GESTURE_DOUBLE_TAP_SOUTH  10   //  |
 #define GESTURE_DOUBLE_TAP_WEST   10   //   >--- The "double tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 #define GESTURE_DOUBLE_TAP_EAST   10   //  |
 #define GESTURE_DOUBLE_TAP_CENTRE 10   // /
-#define GESTURE_TAP_NORTH         3    // \ 
+#define GESTURE_TAP_NORTH         3    // `
 #define GESTURE_TAP_SOUTH         3    //  |
 #define GESTURE_TAP_WEST          3    //   >--- The "tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 #define GESTURE_TAP_EAST          3    //  |
 #define GESTURE_TAP_CENTRE        3    // /
-#define GESTURE_TOUCH_NORTH       1    // \  
+#define GESTURE_TOUCH_NORTH       1    // `
 #define GESTURE_TOUCH_SOUTH       1    //  |
 #define GESTURE_TOUCH_WEST        1    //   >--- The "Touch Gesture"
 #define GESTURE_TOUCH_EAST        1    //  |
@@ -276,17 +276,17 @@ uint8_t  CentreData;          // /
 
 //============================================
 //  Use these constants if Touch filter is set on the gestures that has been read from MGC3130
-//#define GESTURE_DOUBLE_TAP_NORTH  7   // \ 
+//#define GESTURE_DOUBLE_TAP_NORTH  7   // `
 //#define GESTURE_DOUBLE_TAP_SOUTH  7   //  |
 //#define GESTURE_DOUBLE_TAP_WEST   7   //   >--- The "double tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 //#define GESTURE_DOUBLE_TAP_EAST   7   //  |
 //#define GESTURE_DOUBLE_TAP_CENTRE 7   // /
-//#define GESTURE_TAP_NORTH         2   // \ 
+//#define GESTURE_TAP_NORTH         2   // `
 //#define GESTURE_TAP_SOUTH         2   //  |
 //#define GESTURE_TAP_WEST          2   //   >--- The "tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 //#define GESTURE_TAP_EAST          2   //  |
 //#define GESTURE_TAP_CENTRE        2   // /
-//#define GESTURE_TOUCH_NORTH       1   // \ 
+//#define GESTURE_TOUCH_NORTH       1   // `
 //#define GESTURE_TOUCH_SOUTH       1   //  |
 //#define GESTURE_TOUCH_WEST        1   //   >--- The "Touch Gesture" is filtered
 //#define GESTURE_TOUCH_EAST        1   //  |
@@ -295,17 +295,17 @@ uint8_t  CentreData;          // /
 
 //============================================
 //  Use these constants if Tap filter is set on the gestures that has been read from MGC3130
-//#define GESTURE_DOUBLE_TAP_NORTH   5   // \
+//#define GESTURE_DOUBLE_TAP_NORTH   5   // `
 //#define GESTURE_DOUBLE_TAP_SOUTH   5   //  |
 //#define GESTURE_DOUBLE_TAP_WEST    5   //   >--- The "double tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 //#define GESTURE_DOUBLE_TAP_EAST    5   //  |
 //#define GESTURE_DOUBLE_TAP_CENTRE  5   // /
-//#define GESTURE_TAP_NORTH          3   // \ 
+//#define GESTURE_TAP_NORTH          3   // `
 //#define GESTURE_TAP_SOUTH          3   //  |
 //#define GESTURE_TAP_WEST           3   //   >--- The "Touch Gesture" is filtered
 //#define GESTURE_TAP_EAST           3   //  |
 //#define GESTURE_TAP_CENTRE         3   // /
-//#define GESTURE_TOUCH_NORTH        1   // \ 
+//#define GESTURE_TOUCH_NORTH        1   // `
 //#define GESTURE_TOUCH_SOUTH        1   //  |
 //#define GESTURE_TOUCH_WEST         1   //   >--- The "Touch Gesture"
 //#define GESTURE_TOUCH_EAST         1   //  |
@@ -347,7 +347,7 @@ void setup() {
   MonoStableTime.Int.uch = EEPROM.read(0x0000);  //  Reads Monostable TimeOut by EEPROM. Two bytes
   MonoStableTime.Int.ucl = EEPROM.read(0x0001);
      
-  mcp23017.Begin();                              //  \
+  mcp23017.Begin();                              //  `
   mcp23017.SetAllRegBank0(0x00);                 //   |
   mcp23017.ClearReg(MCP23017_BNK0_OLATA, 0x00);  //    >--- Initializes I/O expander board
   mcp23017.SetAllRegBank0(0x01);                 //   |

@@ -85,6 +85,8 @@
 *********************************************************************************************************/
 
 #include <Wire.h>
+#include <Mouse.h>
+#include <Keyboard.h>
 #include "MGC3130.h"
 #include "MCP23017.h"
 
@@ -149,13 +151,13 @@ uint8_t Addr_MGC3130  = 0x42;  //  Indirizzo HW MGC3130 (See datasheet MGC3130)
 //	Touch -> Tap -> Touch -> DoubleTap -> Touch -> Tap
 //
 uint32_t Gesture_Readed;      //  Used to store the recognized gesture
-uint8_t  WestTouch[8];        // \
+uint8_t  WestTouch[8];        // `
 uint8_t  WestCounter;         //  >--- Set of variables used to store gestures sequence. Usefull to recognize between Touch, Tap and Double Tap gesture. West electrode
 uint8_t  WestData;            // /
-uint8_t  EastTouch[8];        // \
+uint8_t  EastTouch[8];        // `
 uint8_t  EastCounter;         //  >--- Set of variables used to store gestures sequence. Usefull to recognize between Touch, Tap and Double Tap gesture. East electrode
 uint8_t  EastData;            // /
-uint8_t  CentreTouch[8];      // \
+uint8_t  CentreTouch[8];      // `
 uint8_t  CentreCounter;       //  >--- Set of variables used to store gestures sequence. Usefull to recognize between Touch, Tap and Double Tap gesture. Centre electrode
 uint8_t  CentreData;          // /
 
@@ -165,39 +167,39 @@ uint8_t  CentreData;          // /
 
 //============================================
 //  Use these constants if no filter is set on the gestures that has been read from MGC3130
-#define GESTURE_DOUBLE_TAP_WEST   10   // \   
+#define GESTURE_DOUBLE_TAP_WEST   10   // `
 #define GESTURE_DOUBLE_TAP_EAST   10   //  >--- The "double tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 #define GESTURE_DOUBLE_TAP_CENTRE 10   // /
-#define GESTURE_TAP_WEST          3    // \   
+#define GESTURE_TAP_WEST          3    // `
 #define GESTURE_TAP_EAST          3    //  >--- The "tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 #define GESTURE_TAP_CENTRE        3    // /
-#define GESTURE_TOUCH_WEST        1    // \  
+#define GESTURE_TOUCH_WEST        1    // `
 #define GESTURE_TOUCH_EAST        1    //  >--- The "Touch Gesture"
 #define GESTURE_TOUCH_CENTRE      1    // /
 //============================================
 
 //============================================
 //  Use these constants if Touch filter is set on the gestures that has been read from MGC3130
-//#define GESTURE_DOUBLE_TAP_WEST   7    // \   
+//#define GESTURE_DOUBLE_TAP_WEST   7    // `
 //#define GESTURE_DOUBLE_TAP_EAST   7    //  >--- The "double tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 //#define GESTURE_DOUBLE_TAP_CENTRE 7    // /
-//#define GESTURE_TAP_WEST          2    // \   
+//#define GESTURE_TAP_WEST          2    // `
 //#define GESTURE_TAP_EAST          2    //  >--- The "tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 //#define GESTURE_TAP_CENTRE        2    // /
-//#define GESTURE_TOUCH_WEST        1    // \  
+//#define GESTURE_TOUCH_WEST        1    // `
 //#define GESTURE_TOUCH_EAST        1    //  >--- The "Touch Gesture"
 //#define GESTURE_TOUCH_CENTRE      1    // /
 //============================================
 
 //============================================
 //  Use these constants if Tap filter is set on the gestures that has been read from MGC3130
-//#define GESTURE_DOUBLE_TAP_WEST   5    // \   
+//#define GESTURE_DOUBLE_TAP_WEST   5    // `
 //#define GESTURE_DOUBLE_TAP_EAST   5    //  >--- The "double tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 //#define GESTURE_DOUBLE_TAP_CENTRE 5    // /
-//#define GESTURE_TAP_WEST          3    // \   
+//#define GESTURE_TAP_WEST          3    // `
 //#define GESTURE_TAP_EAST          3    //  >--- The "tap gesture" is composed by a sequence of gestures. So the sum of gesture codes that have been read returns the value indicated
 //#define GESTURE_TAP_CENTRE        3    // /
-//#define GESTURE_TOUCH_WEST        1    // \  
+//#define GESTURE_TOUCH_WEST        1    // `
 //#define GESTURE_TOUCH_EAST        1    //  >--- The "Touch Gesture"
 //#define GESTURE_TOUCH_CENTRE      1    // /
 //============================================
